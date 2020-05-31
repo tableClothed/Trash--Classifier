@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Where should I throw it?</title>
-	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.7"></script>
+    <meta charset="UTF-8">
+    <title>Where should I throw it?</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.7"></script>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
 </head>
-
 <body>
-	<h1>Where should I throw it?</h1>
-	<h2>It takes longer if you're here for the first time. Don't worry, we will get along.</h2>
-	<main>
-		<input type="file" id="file" name="" multiple>
-		<label for="file">Choose file</label>
-		<button type="submit">Predict</button>
-		<button type="submit">Clear</button>
-		<span></span>
-	</main>
+<h1 class="title">Where should I throw it?</h1>
+<h2 class="title">It takes longer if you're here for the first time. Don't worry, we will get along.</h2>
+<main class="file-form">
+    <input type="file" id="file" multiple class="file-form__select-file">
+    <label for="file" class="file-form__select-file_label">Choose files</label>
+    <button type="submit" class="file-form__button file-form__button_predict" id="predict">Predict</button>
+    <button type="submit" class="file-form__button file-form__button_clear" id="clear">Clear</button>
+    <span class="file-form__files" id="number-of-files"></span>
+</main>
+<div id="preview"></div>
+<script src="main.js"></script>
 </body>
 </html>
