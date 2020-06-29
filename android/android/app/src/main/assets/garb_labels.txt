@@ -1,0 +1,6 @@
+blue (cardboard)
+green (glass)
+yellow (metal)
+blue (paper)
+yellow (plastic)
+black (trash)
