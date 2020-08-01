@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: org.tensorflow:tensorflow-lite-support:0.0.0-nightly@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tensorflow-lite-support-0.0.0-nightly.aar/fccdc24345c847c04356b6e6f7573b01/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tensorflow-lite-support-0.0.0-nightly.aar/fccdc24345c847c04356b6e6f7573b01/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tensorflow-lite-support-0.0.0-nightly.aar/f6f06ce9210901ad344ed6b72dfd6854/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tensorflow-lite-support-0.0.0-nightly.aar/f6f06ce9210901ad344ed6b72dfd6854/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -20,6 +20,7 @@ import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
@@ -87,18 +88,16 @@ public abstract class CameraActivity extends AppCompatActivity
       recognitionValueTextView,
       recognition1ValueTextView,
       recognition2ValueTextView;
-  protected TextView frameValueTextView,
-      cropValueTextView,
-      cameraResolutionTextView,
-      rotationTextView,
-      inferenceTimeTextView;
-  protected ImageView bottomSheetArrowImageView;
-  private ImageView plusImageView, minusImageView;
-  private Spinner modelSpinner;
-  private Spinner deviceSpinner;
-  private TextView threadsTextView;
+  protected ImageView binImage, binImage2, binImage3;
 
-  private Model model = Model.GARBAGE_MODEL;
+//  protected TextView frameValueTextView,
+//      cropValueTextView,
+//      cameraResolutionTextView,
+//      rotationTextView,
+//      inferenceTimeTextView;
+  protected ImageView bottomSheetArrowImageView;
+
+  private Model model = Model.WASTE_MODEL;
   private Device device = Device.CPU;
   private int numThreads = -1;
 
@@ -116,15 +115,11 @@ public abstract class CameraActivity extends AppCompatActivity
       requestPermission();
     }
 
-    threadsTextView = findViewById(R.id.threads);
-    plusImageView = findViewById(R.id.plus);
-    minusImageView = findViewById(R.id.minus);
-    modelSpinner = findViewById(R.id.model_spinner);
-    deviceSpinner = findViewById(R.id.device_spinner);
+
     bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
     gestureLayout = findViewById(R.id.gesture_layout);
     sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
-    bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
+//    bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
 
     ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
     vto.addOnGlobalLayoutListener(
@@ -180,21 +175,10 @@ public abstract class CameraActivity extends AppCompatActivity
     recognition2TextView = findViewById(R.id.detected_item2);
     recognition2ValueTextView = findViewById(R.id.detected_item2_value);
 
-    frameValueTextView = findViewById(R.id.frame_info);
-    cropValueTextView = findViewById(R.id.crop_info);
-    cameraResolutionTextView = findViewById(R.id.view_info);
-    rotationTextView = findViewById(R.id.rotation_info);
-    inferenceTimeTextView = findViewById(R.id.inference_info);
+    binImage = findViewById(R.id.image_view);
+    binImage2 = findViewById(R.id.image_view2);
+    binImage3 = findViewById(R.id.image_view3);
 
-    modelSpinner.setOnItemSelectedListener(this);
-    deviceSpinner.setOnItemSelectedListener(this);
-
-    plusImageView.setOnClickListener(this);
-    minusImageView.setOnClickListener(this);
-
-    model = Model.valueOf(modelSpinner.getSelectedItem().toString().toUpperCase());
-    device = Device.valueOf(deviceSpinner.getSelectedItem().toString());
-    numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
   }
 
   protected int[] getRgbBytes() {
@@ -202,13 +186,6 @@ public abstract class CameraActivity extends AppCompatActivity
     return rgbBytes;
   }
 
-  protected int getLuminanceStride() {
-    return yRowStride;
-  }
-
-  protected byte[] getLuminance() {
-    return yuvBytes[0];
-  }
 
   /** Callback for android.hardware.Camera API */
   @Override
@@ -525,7 +502,10 @@ public abstract class CameraActivity extends AppCompatActivity
     if (results != null && results.size() >= 3) {
       Recognition recognition = results.get(0);
       if (recognition != null) {
-        if (recognition.getTitle() != null) recognitionTextView.setText(recognition.getTitle());
+        if (recognition.getTitle() != null){
+          binImage.setImageDrawable(returnBinImage(recognition.getTitle()));
+          recognitionTextView.setText(recognition.getTitle());
+        }
         if (recognition.getConfidence() != null)
           recognitionValueTextView.setText(
               String.format("%.2f", (100 * recognition.getConfidence())) + "%");
@@ -533,7 +513,10 @@ public abstract class CameraActivity extends AppCompatActivity
 
       Recognition recognition1 = results.get(1);
       if (recognition1 != null) {
-        if (recognition1.getTitle() != null) recognition1TextView.setText(recognition1.getTitle());
+        if (recognition1.getTitle() != null) {
+          recognition1TextView.setText(recognition1.getTitle());
+          binImage2.setImageDrawable(returnBinImage(recognition1.getTitle()));
+        }
         if (recognition1.getConfidence() != null)
           recognition1ValueTextView.setText(
               String.format("%.2f", (100 * recognition1.getConfidence())) + "%");
@@ -541,7 +524,10 @@ public abstract class CameraActivity extends AppCompatActivity
 
       Recognition recognition2 = results.get(2);
       if (recognition2 != null) {
-        if (recognition2.getTitle() != null) recognition2TextView.setText(recognition2.getTitle());
+        if (recognition2.getTitle() != null) {
+          binImage3.setImageDrawable(returnBinImage(recognition2.getTitle()));
+          recognition2TextView.setText(recognition2.getTitle());
+        }
         if (recognition2.getConfidence() != null)
           recognition2ValueTextView.setText(
               String.format("%.2f", (100 * recognition2.getConfidence())) + "%");
@@ -549,53 +535,53 @@ public abstract class CameraActivity extends AppCompatActivity
     }
   }
 
-  protected void showFrameInfo(String frameInfo) {
-    frameValueTextView.setText(frameInfo);
+  protected Drawable returnBinImage(String result) {
+    if (result.contains("blue")) {
+      return getResources().getDrawable(R.drawable.icn_thrash_blue);
+
+    } else if (result.contains("yellow"))  {
+
+      return getResources().getDrawable(R.drawable.icn_thrash_yellow);
+
+    } else if (result.contains("green")) {
+
+      return getResources().getDrawable(R.drawable.icn_thrash_green);
+
+    } else  {
+//      if (result == "black (trash)")
+        return getResources().getDrawable(R.drawable.icn_thrash_black);
+    }
+
   }
 
-  protected void showCropInfo(String cropInfo) {
-    cropValueTextView.setText(cropInfo);
-  }
+//  protected void showFrameInfo(String frameInfo) {
+//    frameValueTextView.setText(frameInfo);
+//  }
 
-  protected void showCameraResolution(String cameraInfo) {
-    cameraResolutionTextView.setText(cameraInfo);
-  }
+//  protected void showCropInfo(String cropInfo) {
+//    cropValueTextView.setText(cropInfo);
+//  }
 
-  protected void showRotationInfo(String rotation) {
-    rotationTextView.setText(rotation);
-  }
-
-  protected void showInference(String inferenceTime) {
-    inferenceTimeTextView.setText(inferenceTime);
-  }
+//  protected void showCameraResolution(String cameraInfo) {
+//    cameraResolutionTextView.setText(cameraInfo);
+//  }
+//
+//  protected void showRotationInfo(String rotation) {
+//    rotationTextView.setText(rotation);
+//  }
+//
+//  protected void showInference(String inferenceTime) {
+//    inferenceTimeTextView.setText(inferenceTime);
+//  }
 
   protected Model getModel() {
     return model;
-  }
-
-  private void setModel(Model model) {
-    if (this.model != model) {
-      LOGGER.d("Updating  model: " + model);
-      this.model = model;
-      onInferenceConfigurationChanged();
-    }
   }
 
   protected Device getDevice() {
     return device;
   }
 
-  private void setDevice(Device device) {
-    if (this.device != device) {
-      LOGGER.d("Updating  device: " + device);
-      this.device = device;
-      final boolean threadsEnabled = device == Device.CPU;
-      plusImageView.setEnabled(threadsEnabled);
-      minusImageView.setEnabled(threadsEnabled);
-      threadsTextView.setText(threadsEnabled ? String.valueOf(numThreads) : "N/A");
-      onInferenceConfigurationChanged();
-    }
-  }
 
   protected int getNumThreads() {
     return numThreads;
@@ -619,33 +605,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
   protected abstract void onInferenceConfigurationChanged();
 
-  @Override
-  public void onClick(View v) {
-    if (v.getId() == R.id.plus) {
-      String threads = threadsTextView.getText().toString().trim();
-      int numThreads = Integer.parseInt(threads);
-      if (numThreads >= 9) return;
-      setNumThreads(++numThreads);
-      threadsTextView.setText(String.valueOf(numThreads));
-    } else if (v.getId() == R.id.minus) {
-      String threads = threadsTextView.getText().toString().trim();
-      int numThreads = Integer.parseInt(threads);
-      if (numThreads == 1) {
-        return;
-      }
-      setNumThreads(--numThreads);
-      threadsTextView.setText(String.valueOf(numThreads));
-    }
-  }
 
-  @Override
-  public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-    if (parent == modelSpinner) {
-      setModel(Model.valueOf(parent.getItemAtPosition(pos).toString().toUpperCase()));
-    } else if (parent == deviceSpinner) {
-      setDevice(Device.valueOf(parent.getItemAtPosition(pos).toString()));
-    }
-  }
 
   @Override
   public void onNothingSelected(AdapterView<?> parent) {

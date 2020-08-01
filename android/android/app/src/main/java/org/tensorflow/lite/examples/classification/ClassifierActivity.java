@@ -23,6 +23,8 @@ import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
 import android.util.Size;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
@@ -101,11 +103,11 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
                     @Override
                     public void run() {
                       showResultsInBottomSheet(results);
-                      showFrameInfo(previewWidth + "x" + previewHeight);
-                      showCropInfo(imageSizeX + "x" + imageSizeY);
-                      showCameraResolution(cropSize + "x" + cropSize);
-                      showRotationInfo(String.valueOf(sensorOrientation));
-                      showInference(lastProcessingTimeMs + "ms");
+//                      showFrameInfo(previewWidth + "x" + previewHeight);
+//                      showCropInfo(imageSizeX + "x" + imageSizeY);
+//                      showCameraResolution(cropSize + "x" + cropSize);
+//                      showRotationInfo(String.valueOf(sensorOrientation));
+//                      showInference(lastProcessingTimeMs + "ms");
                     }
                   });
             }
@@ -132,7 +134,15 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
       classifier.close();
       classifier = null;
     }
-
+//    if (device == Device.GPU
+//        && (model == Model.QUANTIZED_MOBILENET || model == Model.QUANTIZED_EFFICIENTNET)) {
+//      LOGGER.d("Not creating classifier: GPU doesn't support quantized models.");
+//      runOnUiThread(
+//          () -> {
+//            Toast.makeText(this, R.string.tfe_ic_gpu_quant_error, Toast.LENGTH_LONG).show();
+//          });
+//      return;
+//    }
     try {
       LOGGER.d(
           "Creating classifier (model=%s, device=%s, numThreads=%d)", model, device, numThreads);
@@ -144,5 +154,15 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     // Updates the input image size.
     imageSizeX = classifier.getImageSizeX();
     imageSizeY = classifier.getImageSizeY();
+  }
+
+  @Override
+  public void onClick(View view) {
+
+  }
+
+  @Override
+  public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
   }
 }

@@ -30,7 +30,6 @@ import java.util.PriorityQueue;
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.examples.classification.env.Logger;
-import org.tensorflow.lite.examples.classification.tflite.Classifier.Device;
 import org.tensorflow.lite.gpu.GpuDelegate;
 import org.tensorflow.lite.nnapi.NnApiDelegate;
 import org.tensorflow.lite.support.common.FileUtil;
@@ -51,7 +50,7 @@ public abstract class Classifier {
 
   /** The model type used for classification. */
   public enum Model {
-    GARBAGE_MODEL
+    WASTE_MODEL
   }
 
   /** The runtime device type used for executing classification. */
@@ -108,9 +107,9 @@ public abstract class Classifier {
    */
   public static Classifier create(Activity activity, Model model, Device device, int numThreads)
       throws IOException {
-    if (model == Model.GARBAGE_MODEL) {
-    return new Garbage_Model(activity, device, numThreads);
-  } else {
+    if (model == Model.WASTE_MODEL) {
+      return new WasteClassifier(activity, device, numThreads);
+    } else {
       throw new UnsupportedOperationException();
     }
   }
