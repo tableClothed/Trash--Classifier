@@ -1,16 +1,9 @@
-# Trash Classifier ♻
+# Mobile Trash Classifier ♻
 An Android app for predicting to which container should you throw a particular item. Be eco, guys.
 **European trash sorting rules only (check out the table below)!**
 
-<p align="center">
-  <img src="https://github.com/weronikazak/Handy-Trash-Classifier/blob/master/test/metal.gif">
- </p>
 
-
---------------------------------------
-
-
-### TRASH SORTING RULES:
+## TRASH SORTING RULES:
 
 | Bin's Color | Waste Type  |
 | ----------- | ----------- |
@@ -21,31 +14,27 @@ An Android app for predicting to which container should you throw a particular i
 | Brown       | Bio         |
 
 
----------------------------------
+## EXAMPLES:
 
-### MODEL PERFORMANCE:
+<p align="center">
+<img src="https://github.com/weronikazak/Handy-Trash-Classifier/blob/master/test/paper.gif">
+<img src="https://github.com/weronikazak/Handy-Trash-Classifier/blob/master/test/plastic.gif">
+  <img src="https://github.com/weronikazak/Handy-Trash-Classifier/blob/master/test/metal.gif">
+</p>
+
+
+
+## MODEL PERFORMANCE:
 ![Example of usage](https://github.com/weronikazak/Handy-Trash-Classifier/blob/master/python/performance/accuracy.png)
 
-Training accuracy: 85,20%
-
+Training accuracy: 85,20%  
 Testing accuracy: 83,79%
 
 
 ![Example of usage](https://github.com/weronikazak/Handy-Trash-Classifier/blob/master/python/performance/loss.png)
 
-Training loss: 12,11%
-
+Training loss: 12,11%  
 Testing loss: 20,13%
-
-
------------------------------------
-
-### EXAMPLES:
-
-<p align="center">
-<img src="https://github.com/weronikazak/Handy-Trash-Classifier/blob/master/test/paper.gif">
-<img src="https://github.com/weronikazak/Handy-Trash-Classifier/blob/master/test/plastic.gif">
-  </p>
 
 
 ## TO DO:
